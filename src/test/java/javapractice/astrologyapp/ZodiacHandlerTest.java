@@ -1,18 +1,39 @@
 package javapractice.astrologyapp;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.mockito.Mockito.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ZodiacHandlerTest {
-// Aquarius - Progressive, original, independent, humanitarian
-// Pisces -  Compassionate, artistic, intuitive, gentle, wise, musical
-// Aries -  Courageous, determined, confident, enthusiastic, optimistic, honest, passionate
-// Taurus -  Reliable, patient, practical, devoted, responsible, stable
-// Gemini -  Gentle, affectionate, curious, adaptable, ability to learn quickly and exchange ideas
-// Cancer - Tenacious, highly imaginative, loyal, emotional, sympathetic, persuasive
-// Leo -  Creative, passionate, generous, warm-hearted, cheerful, humorous
-// Virgo -  Loyal, analytical, kind, hardworking, practical
-// Libra - Cooperative,diplomatic, gracious, fair-minded, social
-// Scorpio - Resourceful, powerful, brave, passionate, a true friend
-//  Sagittarius - Generous, idealistic, great sense of humor
-// Capricorn -  Responsible, disciplined, self-control, good managers
+    private IZodiacGetter zodiacGetter;
+    private IZodiacValidator zodiacValidator;
+    private IZodiacHandler zodiacHandler;
+
+    @BeforeEach
+    public void startup() {
+        this.zodiacGetter = mock(ZodiacGetter.class);
+        this.zodiacValidator = mock(ZodiacValidator.class);
+
+        this.zodiacHandler = new ZodiacHandler(zodiacGetter,zodiacValidator);
+    }
+
+    @Test
+    public void givenAppStartsCallGetInputOnce() {
+        when(zodiacGetter.getInput()).thenReturn("leo");
+        when(zodiacValidator.isZodiac("leo")).thenReturn(true);
+        zodiacHandler.getZodiac();
+        verify(zodiacGetter, times(1)).getInput();
+    }
+
+    @Test
+    public void givenLeoCallIsZodiacOnce() {
+        when(zodiacGetter.getInput()).thenReturn("leo");
+        when(zodiacValidator.isZodiac("leo")).thenReturn(true);
+        zodiacHandler.getZodiac();
+        verify(zodiacValidator, times(1)).isZodiac("leo");
+    }
+
 }
