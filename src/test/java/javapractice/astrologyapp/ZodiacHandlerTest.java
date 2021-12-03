@@ -36,4 +36,30 @@ class ZodiacHandlerTest {
         verify(zodiacValidator, times(1)).isZodiac("leo");
     }
 
+    @Test
+    public void givenGetTraitsAquariusGetProgressiveOriginalIndependentHumanitarian() {
+        when(zodiacGetter.getInput()).thenReturn("aquarius");
+        when(zodiacValidator.isZodiac("aquarius")).thenReturn(true);
+        zodiacHandler.getZodiac();
+        String result = zodiacHandler.getTraits("aquarius");
+        assertEquals("Progressive, original, independent, humanitarian", result);
+    }
+
+    @Test
+    public void givenGetTraitsLeoGetCreativePassionateGenerousWarmHeartedCheerfulHumorous() {
+        when(zodiacGetter.getInput()).thenReturn("leo");
+        when(zodiacValidator.isZodiac("leo")).thenReturn(true);
+        zodiacHandler.getZodiac();
+        String result = zodiacHandler.getTraits("leo");
+        assertEquals("Creative, passionate, generous, warm-hearted, cheerful, humorous", result);
+    }
+
+    @Test
+    public void givenGetTraitsCapricornGetCreativePassionateGenerousWarmHeartedCheerfulHumorous() {
+        when(zodiacGetter.getInput()).thenReturn("capricorn");
+        when(zodiacValidator.isZodiac("capricorn")).thenReturn(true);
+        zodiacHandler.getZodiac();
+        String result = zodiacHandler.getTraits("capricorn");
+        assertEquals("Responsible, disciplined, self-control, good managers", result);
+    }
 }
